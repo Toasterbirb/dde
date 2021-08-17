@@ -6,8 +6,8 @@
 #include <X11/Xlib.h>
 #include <X11/Xft/Xft.h>
 
-#include "../include/drw.hpp"
-#include "../include/util.hpp"
+#include "drw.hpp"
+#include "util.hpp"
 
 #define UTF_INVALID 0xFFFD
 #define UTF_SIZ     4
