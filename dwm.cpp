@@ -42,8 +42,8 @@
 #endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
 
-#include "../include/drw.hpp"
-#include "../include/util.hpp"
+#include "drw.hpp"
+#include "util.hpp"
 
 /* macros */
 #define BUTTONMASK              (ButtonPressMask|ButtonReleaseMask)
@@ -261,7 +261,7 @@ static unsigned int numlockmask = 0;
 //	[UnmapNotify] = unmapnotify
 //};
 
-static void *handler(XEvent* event)
+static void handler(XEvent* event)
 {
 	switch (event->type)
 	{
@@ -319,7 +319,7 @@ static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
 
 /* configuration, allows nested code to access above variables */
-#include "../config.h"
+#include "config.h"
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
@@ -1812,6 +1812,7 @@ void
 unmanage(Client *c, int destroyed)
 {
 	Monitor *m = c->mon;
+
 	XWindowChanges wc;
 
 	detach(c);

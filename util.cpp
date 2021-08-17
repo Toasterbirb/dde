@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../include/util.hpp"
+#include "util.hpp"
 
 void *
 ecalloc(size_t nmemb, size_t size)
