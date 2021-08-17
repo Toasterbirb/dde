@@ -22,7 +22,7 @@ ${OBJ}: config.h config.mk
 
 config.h:
 	mkdir -p ${BUILDDIR}
-	cp ./include/config.def.h ${BUILDDIR}/$@
+	cp config.def.h ${BUILDDIR}/$@
 
 dwm: ${OBJ}
 	${CC} -o ${BUILDDIR}/$@ ${OBJ} ${LDFLAGS}
@@ -32,8 +32,8 @@ clean:
 
 dist: clean
 	mkdir -p dwm-${VERSION}
-	cp -R LICENSE Makefile README ./include/config.def.h config.mk\
-		dwm.1 ./include/drw.hpp ./include/util.hpp ./src/${SRC} dwm.png transient.cpp dwm-${VERSION}
+	cp -R LICENSE Makefile README config.def.h config.mk\
+		dwm.1 drw.hpp util.hpp ${SRC} dwm.png transient.cpp dwm-${VERSION}
 	tar -cf dwm-${VERSION}.tar dwm-${VERSION}
 	gzip dwm-${VERSION}.tar
 	rm -rf dwm-${VERSION}
