@@ -267,45 +267,59 @@ static void handler(XEvent* event)
 	{
 		case (ButtonPress):
 			buttonpress(event);
+			break;
 			
 		case (ClientMessage):
 			clientmessage(event);
+			break;
 
 		case (ConfigureRequest):
 			configurerequest(event);
+			break;
 
 		case (ConfigureNotify):
 			configurenotify(event);
+			break;
 
 		case (DestroyNotify):
 			destroynotify(event);
+			break;
 
 		case (EnterNotify):
 			enternotify(event);
+			break;
 
 		case (Expose):
 			expose(event);
+			break;
 
 		case (FocusIn):
 			focusin(event);
+			break;
 
 		case (KeyPress):
 			keypress(event);
+			break;
 
 		case (MappingNotify):
 			mappingnotify(event);
+			break;
 
 		case (MapRequest):
 			maprequest(event);
+			break;
 
 		case (MotionNotify):
 			motionnotify(event);
+			break;
 
 		case (PropertyNotify):
 			propertynotify(event);
+			break;
 
 		case (UnmapNotify):
 			unmapnotify(event);
+			break;
 	}
 }
 
