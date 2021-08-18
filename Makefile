@@ -10,6 +10,7 @@ BUILDDIR = ./build
 all: options dwm
 
 options:
+	mkdir -p ${BUILDDIR}
 	@echo dwm build options:
 	@echo "CFLAGS   = ${CFLAGS}"
 	@echo "LDFLAGS  = ${LDFLAGS}"
@@ -21,7 +22,6 @@ options:
 ${OBJ}: config.h config.mk
 
 config.h:
-	mkdir -p ${BUILDDIR}
 	cp config.def.h ${BUILDDIR}/$@
 
 dwm: ${OBJ}
@@ -29,6 +29,7 @@ dwm: ${OBJ}
 
 clean:
 	rm -rf ${BUILDDIR}
+	rm config.h
 
 dist: clean
 	mkdir -p dwm-${VERSION}
@@ -50,4 +51,7 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
-.PHONY: all options clean dist install uninstall
+run:
+	Xephyr -br -ac -noreset -screen 1280x720 :1 & disown ; sleep 1 ; DISPLAY=:1 ${BUILDDIR}/dwm
+
+.PHONY: all options clean dist install uninstall run
