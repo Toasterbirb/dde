@@ -1,2 +1,3 @@
 *.o
 [Bb]uild
+config.h
