@@ -5,12 +5,10 @@ include config.mk
 
 SRC = drw.cpp dwm.cpp util.cpp
 OBJ = ${SRC:.cpp=.o}
-BUILDDIR = ./build
 
 all: options dwm
 
 options:
-	mkdir -p ${BUILDDIR}
 	@echo dwm build options:
 	@echo "CFLAGS   = ${CFLAGS}"
 	@echo "LDFLAGS  = ${LDFLAGS}"
@@ -22,13 +20,12 @@ options:
 ${OBJ}: config.h config.mk
 
 config.h:
-	cp config.def.h ${BUILDDIR}/$@
+	cp config.def.h $@
 
 dwm: ${OBJ}
-	${CC} -o ${BUILDDIR}/$@ ${OBJ} ${LDFLAGS}
+	${CC} -o $@ ${OBJ} ${LDFLAGS}
 
 clean:
-	rm -rf ${BUILDDIR}
 	rm config.h
 
 dist: clean
@@ -52,6 +49,6 @@ uninstall:
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
 run:
-	Xephyr -br -ac -noreset -screen 1280x720 :1 & disown ; sleep 1 ; DISPLAY=:1 ${BUILDDIR}/dwm
+	Xephyr -br -ac -noreset -screen 1280x720 :1 & disown ; sleep 1 ; DISPLAY=:1 dwm
 
 .PHONY: all options clean dist install uninstall run
