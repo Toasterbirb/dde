@@ -52,7 +52,7 @@
 #define CLEANMASK(mask)         (mask & ~(numlockmask|LockMask) & (ShiftMask|ControlMask|Mod1Mask|Mod2Mask|Mod3Mask|Mod4Mask|Mod5Mask))
 #define INTERSECT(x,y,w,h,m)    (MAX(0, MIN((x)+(w),(m)->wx+(m)->ww) - MAX((x),(m)->wx)) \
                                * MAX(0, MIN((y)+(h),(m)->wy+(m)->wh) - MAX((y),(m)->wy)))
-#define ISVISIBLE(C)            ((C->tags & C->mon->tagset[C->mon->seltags]))
+#define ISVISIBLE(C) 			((C->tags & C->mon->tagset[C->mon->seltags]))
 #define LENGTH(X)               (sizeof X / sizeof X[0])
 #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
 #define WIDTH(X)                ((X)->w + 2 * (X)->bw)
@@ -260,22 +260,6 @@ static int bh, blw = 0;      /* bar geometry */
 static int lrpad;            /* sum of left and right padding for text */
 static int (*xerrorxlib)(Display *, XErrorEvent *);
 static unsigned int numlockmask = 0;
-//static void (*handler[LASTEvent]) (XEvent *) = {
-//	[ButtonPress] = buttonpress,
-//	[ClientMessage] = clientmessage,
-//	[ConfigureRequest] = configurerequest,
-//	[ConfigureNotify] = configurenotify,
-//	[DestroyNotify] = destroynotify,
-//	[EnterNotify] = enternotify,
-//	[Expose] = expose,
-//	[FocusIn] = focusin,
-//	[KeyPress] = keypress,
-//	[MappingNotify] = mappingnotify,
-//	[MapRequest] = maprequest,
-//	[MotionNotify] = motionnotify,
-//	[PropertyNotify] = propertynotify,
-//	[UnmapNotify] = unmapnotify
-//};
 
 static void handler(XEvent* event)
 {
@@ -284,7 +268,7 @@ static void handler(XEvent* event)
 		case (ButtonPress):
 			buttonpress(event);
 			break;
-			
+
 		case (ClientMessage):
 			clientmessage(event);
 			break;
@@ -1882,8 +1866,10 @@ tile(Monitor *m)
 	else
 		mw = m->ww - 2 * m->gappov * oe + m->gappiv * ie;
 
+	// Use different calculations for tiling if gaps aren't enabled
 	if (enablegaps)
 	{
+		// With gaps
 		for (i = 0, my = ty = m->gappoh * oe, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		{
 			if (i < m->nmaster) {
@@ -1901,6 +1887,7 @@ tile(Monitor *m)
 	}
 	else
 	{
+		// With no gaps
 		for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		{
 			if (i < m->nmaster) {
