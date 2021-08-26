@@ -44,6 +44,8 @@
 
 #include "drw.hpp"
 #include "util.hpp"
+#include "structs.hpp"
+#include "./patches/include/vanitygaps.hpp"
 
 /* macros */
 #define BUTTONMASK              (ButtonPressMask|ButtonReleaseMask)
@@ -68,12 +70,12 @@ enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms *
 enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
        ClkClientWin, ClkRootWin, ClkLast }; /* clicks */
 
-typedef union {
-	int i;
-	int ui;
-	float f;
-	const void *v;
-} Arg;
+//typedef union {
+//	int i;
+//	int ui;
+//	float f;
+//	const void *v;
+//} Arg;
 
 typedef struct {
 	unsigned int click;
@@ -120,6 +122,13 @@ struct Monitor {
 	int by;               /* bar geometry */
 	int mx, my, mw, mh;   /* screen size */
 	int wx, wy, ww, wh;   /* window area  */
+
+	/* gaps */
+	int gappih; 	/* horizontal gap between windows */
+	int gappiv; 	/* vertical gap between windows */
+	int gappoh; 	/* horizontal outer gaps */
+	int gappov; 	/* vertical outer gaps */
+
 	unsigned int seltags;
 	unsigned int sellt;
 	unsigned int tagset[2];
@@ -197,6 +206,19 @@ static void run(void);
 static void scan(void);
 static int sendevent(Client *c, Atom proto);
 static void sendmon(Client *c, Monitor *m);
+
+/* gaps */
+static void setgaps(int oh, int ov, int ih, int iv);
+static void togglegaps(const Arg *arg);
+static void defaultgaps(const Arg *arg);
+static void incrgaps(const Arg *arg);
+static void incrigaps(const Arg *arg);
+static void incrogaps(const Arg *arg);
+static void incrohgaps(const Arg *arg);
+static void incrovgaps(const Arg *arg);
+static void incrihgaps(const Arg *arg);
+static void incrivgaps(const Arg *arg);
+
 static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
@@ -238,6 +260,7 @@ static void zoom(const Arg *arg);
 /* variables */
 static const char broken[] = "broken";
 static char stext[256];
+static int gaptoggle = 1;	 /* 0 disables gaps */
 static int screen;
 static int sw, sh;           /* X display screen geometry width, height */
 static int bh, blw = 0;      /* bar geometry */
@@ -702,6 +725,10 @@ createmon(void)
 	m->nmaster = nmaster;
 	m->showbar = showbar;
 	m->topbar = topbar;
+	m->gappih = gappih;
+	m->gappiv = gappiv;
+	m->gappoh = gappoh;
+	m->gappov = gappov;
 	m->lt[0] = &layouts[0];
 	m->lt[1] = &layouts[1 % LENGTH(layouts)];
 	strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
@@ -1470,6 +1497,116 @@ scan(void)
 	}
 }
 
+/* gaps */
+void setgaps(int oh, int ov, int ih, int iv)
+{
+	/* prevent negative values */
+	if (oh < 0) oh = 0;
+	if (ov < 0) ov = 0;
+	if (ih < 0) ih = 0;
+	if (iv < 0) iv = 0;
+
+	/* set new values only if gaps are enabled in the config */
+	if (enablegaps)
+	{
+		std::cout << "Setting gaps to new values" << std::endl;
+		selmon->gappoh = oh;
+		selmon->gappov = ov;
+		selmon->gappih = ih;
+		selmon->gappiv = iv;
+	}
+
+	tile(selmon);
+}
+
+void togglegaps(const Arg *arg)
+{
+	// Check if gaps are disabled
+	if (enablegaps)
+	{
+		gaptoggle = !gaptoggle;
+		arrange(selmon);
+	}
+}
+
+void defaultgaps(const Arg *arg)
+{
+	std::cout << "Setting gaps to default" << std::endl;
+	if (enablegaps)
+		setgaps(gappoh, gappov, gappih, gappiv);
+}
+
+void incrgaps(const Arg *arg)
+{
+	std::cout << "Increase all gap sizes" << std::endl;
+	setgaps(
+		selmon->gappoh + arg->i,
+		selmon->gappov + arg->i,
+		selmon->gappih + arg->i,
+		selmon->gappiv + arg->i
+	);
+}
+
+void incrigaps(const Arg *arg)
+{
+	setgaps(
+		selmon->gappoh,
+		selmon->gappov,
+		selmon->gappih + arg->i,
+		selmon->gappiv + arg->i
+	);
+}
+
+void incrogaps(const Arg *arg)
+{
+	setgaps(
+		selmon->gappoh + arg->i,
+		selmon->gappov + arg->i,
+		selmon->gappih,
+		selmon->gappiv
+	);
+}
+
+void incrohgaps(const Arg *arg)
+{
+	setgaps(
+		selmon->gappoh + arg->i,
+		selmon->gappov,
+		selmon->gappih,
+		selmon->gappiv
+	);
+}
+
+void incrovgaps(const Arg *arg)
+{
+	setgaps(
+		selmon->gappoh,
+		selmon->gappov + arg->i,
+		selmon->gappih,
+		selmon->gappiv
+	);
+}
+
+void incrihgaps(const Arg *arg)
+{
+	setgaps(
+		selmon->gappoh,
+		selmon->gappov,
+		selmon->gappih + arg->i,
+		selmon->gappiv
+	);
+}
+
+void incrivgaps(const Arg *arg)
+{
+	setgaps(
+		selmon->gappoh,
+		selmon->gappov,
+		selmon->gappih,
+		selmon->gappiv + arg->i
+	);
+}
+
 void
 sendmon(Client *c, Monitor *m)
 {
@@ -1736,26 +1873,37 @@ tagmon(const Arg *arg)
 void
 tile(Monitor *m)
 {
-	unsigned int i, n, h, mw, my, ty;
+	/* set gaptoggle to 0, if gaps are disabled in the configs */
+	/* this will prevent gaps during tiling */
+	if (!enablegaps)
+		gaptoggle = 0;
+
+	unsigned int i, n, h, r, mw, my, ty, oe = gaptoggle, ie = gaptoggle;
 	Client *c;
 
 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	if (n == 0)
 		return;
 
+	if (smartgaps == n) {
+		oe = 0; 	// outer gaps disabled
+	}
+
 	if (n > m->nmaster)
-		mw = m->nmaster ? m->ww * m->mfact : 0;
+		mw = m->nmaster ? (m->ww + m->gappiv * ie) * m->mfact : 0;
 	else
-		mw = m->ww;
-	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+		mw = m->ww - 2 * m->gappov * oe + m->gappiv * ie;
+	for (i = 0, my = ty = m->gappoh * oe, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
-			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
-			my += HEIGHT(c);
+			r = MIN(n, m->nmaster) - i;
+			h = (m->wh - my - m->gappoh * oe - m->gappih * ie * (r-1)) / r;
+			resize(c, m->wx + m->gappov * oe, m->wy + my, mw - (2*c->bw) - m->gappiv * ie, h - (2*c->bw), 0);
+			my += HEIGHT(c) + m->gappih * ie;
 		} else {
-			h = (m->wh - ty) / (n - i);
-			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
-			ty += HEIGHT(c);
+			r = n - i;
+			h = (m->wh - ty - m->gappoh * oe - m->gappih * ie * (r - 1)) / r;
+			resize(c, m->wx + mw + m->gappov * oe, m->wy + ty, m->ww - mw - (2*c->bw) - 2*m->gappov * oe, h - (2*c->bw), 0);
+			ty += HEIGHT(c) + m->gappoh * ie;
 		}
 }
 
