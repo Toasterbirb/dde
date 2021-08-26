@@ -45,7 +45,6 @@
 #include "drw.hpp"
 #include "util.hpp"
 #include "structs.hpp"
-#include "./patches/include/vanitygaps.hpp"
 
 /* macros */
 #define BUTTONMASK              (ButtonPressMask|ButtonReleaseMask)
@@ -1486,7 +1485,6 @@ void setgaps(int oh, int ov, int ih, int iv)
 	/* set new values only if gaps are enabled in the config */
 	if (enablegaps)
 	{
-		std::cout << "Setting gaps to new values" << std::endl;
 		selmon->gappoh = oh;
 		selmon->gappov = ov;
 		selmon->gappih = ih;
