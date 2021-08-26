@@ -1,3 +1,4 @@
 *.o
 [Bb]uild
 config.h
+dwm
