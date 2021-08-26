@@ -26,7 +26,7 @@ dwm: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
 
 clean:
-	rm config.h
+	rm -f dwm
 
 dist: clean
 	mkdir -p dwm-${VERSION}
@@ -49,6 +49,6 @@ uninstall:
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
 run:
-	Xephyr -br -ac -noreset -screen 1280x720 :1 & disown ; sleep 1 ; DISPLAY=:1 dwm
+	Xephyr -br -ac -noreset -screen 1280x720 :1 & disown ; sleep 1 ; DISPLAY=:1 ./dwm
 
 .PHONY: all options clean dist install uninstall run
