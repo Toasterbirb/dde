@@ -40,6 +40,7 @@ struct Client {
 	int bw, oldbw;
 	unsigned int tags;
 	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
+	bool issteam;
 	Client *next;
 	Client *snext;
 	Monitor *mon;
