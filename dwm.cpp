@@ -2142,7 +2142,8 @@ main(int argc, char *argv[])
 	scan();
 
 	// Restore wallpaper with the wallpapercmd command
-	system(wallpapercmd);
+	if (restorewallpaper)
+		system(wallpapercmd);
 
 	run();
 	cleanup();

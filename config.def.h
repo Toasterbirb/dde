@@ -1,6 +1,13 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance options */
+
+/* wallpaper */
+static const bool restorewallpaper 	= false; 	/* when enabled, the wallpapercmd command is run */
+												/* on launch to restore the previous wallpaper */
+												/* the default command uses nitrogen */
+static const char *wallpapercmd 	= "nitrogen --restore";
+
 /* gaps */
 static const bool enablegaps 		= true; 	/* option to turn off gaps completely */
 static const unsigned int gappih 	= 10; 		/* horizontal inner gap between windows */
@@ -76,7 +83,6 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] 		= { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  		= { "alacritty", NULL };
-static const char *wallpapercmd 	= "nitrogen --restore";
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
