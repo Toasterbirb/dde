@@ -1,15 +1,19 @@
-dwm - dynamic window manager
-============================
-dwm is an extremely fast, small, and dynamic window manager for X.
+# dde - dynamic desktop environment
+---
+dde is a fork of dwm. Like dwm, it is extremely fast, small and dynamically handles window management.
 
+Applied patches so far:
+- Colorbar
+- Fix for floating steam windows
+- Vanitygaps
 
-Requirements
-------------
+## Requirements
+---
 In order to build dwm you need the Xlib header files.
 
 
-Installation
-------------
+## Installation
+---
 Edit config.mk to match your local setup (dwm is installed into
 the /usr/local namespace by default).
 
@@ -19,8 +23,8 @@ necessary as root):
     make clean install
 
 
-Running dwm
------------
+## Running dde
+---
 Add the following line to your .xinitrc to start dwm using startx:
 
     exec dwm
