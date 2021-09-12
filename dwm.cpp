@@ -1492,8 +1492,6 @@ void layoutmenu(const Arg *arg)
 		sprintf(layoutlist, "%s\n%d. %s", layoutlist, i + 1, layouts[i].symbol);
 	}
 
-	std::cout << layoutlist << std::endl;
-
 	/* Run the dmenu command and get its output */
 	FILE *p;
 	int index;
