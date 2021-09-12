@@ -142,6 +142,7 @@ applyrules(Client *c)
 	classifier    = ch.res_class ? ch.res_class : broken;
 	instance = ch.res_name  ? ch.res_name  : broken;
 
+	/* A small hack to prevent floating steam windows from sliding by themselves */
 	if (strstr(classifier, "Steam") || strstr(classifier, "steam_app_"))	
 		c->issteam = true;
 
