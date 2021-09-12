@@ -40,7 +40,10 @@ struct Client {
 	int bw, oldbw;
 	unsigned int tags;
 	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
+
+	/* Boolean for checking if the window is a steam client */
 	bool issteam;
+
 	Client *next;
 	Client *snext;
 	Monitor *mon;
