@@ -21,6 +21,7 @@
  * To understand everything else, start reading main().
  */
 #include <iostream>
+#include <cstring>
 #include <errno.h>
 #include <locale.h>
 #include <signal.h>
@@ -1474,6 +1475,49 @@ setlayout(const Arg *arg)
 		arrange(selmon);
 	else
 		drawbar(selmon);
+}
+
+void layoutmenu(const Arg *arg)
+{
+	/* How many symbols can one layout name fit including the number */
+	int maxlayoutsymbolsize = 10;
+
+	int layoutcount = (sizeof(layouts)/sizeof(*layouts));
+	char layoutlist[layoutcount * maxlayoutsymbolsize];
+	sprintf(layoutlist, "1. %s", layouts[0].symbol);
+
+	/* Create a list out of the layouts */
+	for (int i = 1; i < layoutcount; i++)
+	{
+		sprintf(layoutlist, "%s\n%d. %s", layoutlist, i + 1, layouts[i].symbol);
+	}
+
+	std::cout << layoutlist << std::endl;
+
+	/* Run the dmenu command and get its output */
+	FILE *p;
+	int index;
+	char c[maxlayoutsymbolsize], *s;
+	char dmenucommand[layoutcount * maxlayoutsymbolsize + 256];
+	sprintf(dmenucommand, "echo -e '%s' | dmenu -l %d -x 182 -y 16 -z 64", layoutlist, layoutcount);
+	if (!(p = popen(dmenucommand, "r")))
+		return;
+
+	s = fgets(c, sizeof(c), p);
+	pclose(p);
+
+	if (!s || *s == '\0' || c[0] == '\0')
+		return;
+
+	char indexstr[4];
+	sprintf(indexstr, "%c", c[0]);
+	index = std::atoi(indexstr) - 1;
+	std::cout << "Result: <" << index << ">" << std::endl;
+
+	// Set the layout
+	Arg a = { .v = &layouts[index] };
+	std::cout << a.v << std::endl;
+	setlayout(&a);
 }
 
 /* arg > 1.0 will set mfact absolutely */
