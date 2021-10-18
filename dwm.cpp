@@ -2194,10 +2194,6 @@ main(int argc, char *argv[])
 #endif /* __OpenBSD__ */
 	scan();
 
-	// Restore wallpaper with the wallpapercmd command
-	if (restorewallpaper)
-		system(wallpapercmd);
-
 	run();
 	cleanup();
 	XCloseDisplay(dpy);

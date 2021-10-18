@@ -2,11 +2,6 @@
 
 /* appearance options */
 
-/* wallpaper */
-static const bool restorewallpaper 	= false; 	/* when enabled, the wallpapercmd command is run */
-												/* on launch to restore the previous wallpaper */
-												/* the default command uses nitrogen */
-static const char *wallpapercmd 	= "nitrogen --restore";
 
 /* gaps */
 static const bool enablegaps 		= true; 	/* option to turn off gaps completely */
