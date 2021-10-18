@@ -13,12 +13,14 @@ static const int smartgaps 			= 0; 		/* 1 means no outer gap when there is only 
 
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int barheight = 0; 		/* 0 means automatic */
+static const unsigned int barbottom = 4; 		/* size of the small rect below the bar to create a 3D effect */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 
 /* fonts */
-static const char *fonts[]          = { "monospace:size=12" };
-static const char dmenufont[]       = "monospace:size=12";
+static const char *fonts[]          = { "monospace:size=14" };
+static const char dmenufont[]       = "monospace:size=14";
 
 /* colors */
 static const char normfgcolor[]     = "#d8dee9";
@@ -26,6 +28,8 @@ static const char normbgcolor[]     = "#3b4252";
 static const char selfgcolor[]      = "#2e3440";
 static const char nomrbordercolor[] = "#2E3440";
 static const char selbgcolor[]      = "#a3be8c";
+static const char normfgshadowcolor[]     = "#363B48";
+static const char selfgshadowcolor[]      = "#91B175";
 
 static const char *colors[][3]      = {
 	/*           	    	fg         		bg         		border   */
@@ -36,6 +40,8 @@ static const char *colors[][3]      = {
 	[SchemeTagsNorm]  	= { normfgcolor, 	normbgcolor,  	"#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
 	[SchemeInfoSel]  	= { selfgcolor, 	selbgcolor,  	"#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
 	[SchemeInfoNorm]  	= { normfgcolor, 	normbgcolor,  	"#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+	[SchemeNormShadow] 	= { normfgshadowcolor, 	"#000000",  "#000000"  }, // Shadow of selected tag
+	[SchemeSelShadow]  	= { selfgshadowcolor, 	"#000000",  	"#000000"  }, // Shadow of selected tag
 };
 
 /* tagging */
