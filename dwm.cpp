@@ -567,10 +567,10 @@ drawbar(Monitor *m)
 	if (m == selmon) { /* status is only drawn on selected monitor */
 		drw_setscheme(drw, scheme[SchemeStatus]);
 		sw = TEXTW(stext) - lrpad + barpadding + lrpad / 2; /* 6px right padding + lrpad / 2 to center the text */
-		drw_text(drw, m->ww - sw, 0, sw + lrpad / 2, bh + lrpad / 2 - barbottom, lrpad / 2, stext, 0);
+		drw_text(drw, m->ww - sw, 0, sw + lrpad / 2, bh + lrpad / 2 - barbottom + bartextheightoffset, lrpad / 2, stext, 0);
 
 		drw_setscheme(drw, scheme[SchemeNormShadow]);
-		drw_rect(drw, m->ww - sw, lrpad + 6, sw + lrpad / 2, barbottom, 1, 0); /* add shadow bar for status */
+		drw_rect(drw, m->ww - sw, lrpad + 6, sw + lrpad / 2, barbottom + bartextheightoffset, 1, 0); /* add shadow bar for status */
 	}
 
 	for (c = m->clients; c; c = c->next) {
@@ -584,7 +584,7 @@ drawbar(Monitor *m)
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeTagsSel : SchemeTagsNorm]);
 
 		/* lrpad / 2 centers the tag text */
-		drw_text(drw, x, 0, w, bh + lrpad / 2 - barbottom, lrpad / 2, tags[i], urg & 1 << i); /* Add tag names from 1 to 9 */
+		drw_text(drw, x, 0, w, bh + lrpad / 2 - barbottom + bartextheightoffset, lrpad / 2, tags[i], urg & 1 << i); /* Add tag names from 1 to 9 */
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSelShadow : SchemeNormShadow]);
 		drw_rect(drw, x, lrpad + 6, w, barbottom, 1, 0); /* add shadow bar to tags */
 		if (occ & 1 << i)
@@ -598,7 +598,7 @@ drawbar(Monitor *m)
 	}
 	w = blw = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeTagsNorm]);
-	x = drw_text(drw, x, 0, w, bh + lrpad / 2 - barbottom, lrpad / 2, m->ltsymbol, 0); /* Active tiling mode */
+	x = drw_text(drw, x, 0, w, bh + lrpad / 2 - barbottom + bartextheightoffset, lrpad / 2, m->ltsymbol, 0); /* Active tiling mode */
 
 	drw_setscheme(drw, scheme[SchemeNormShadow]);
 	drw_rect(drw, x - w, lrpad + 6, w, barbottom, 1, 0); /* add shadow bar for tiling indicator */
@@ -606,9 +606,9 @@ drawbar(Monitor *m)
 	if ((w = m->ww - sw - x) > bh) {
 		if (m->sel) {
 			drw_setscheme(drw, scheme[m == selmon ? SchemeInfoSel : SchemeInfoNorm]);
-			drw_text(drw, x, 0, w, bh + lrpad / 2 - barbottom, lrpad / 2, m->sel->name, 0); /* Print the title of selected window */
+			drw_text(drw, x, 0, w, bh + lrpad / 2 - barbottom + bartextheightoffset, lrpad / 2, m->sel->name, 0); /* Print the title of selected window */
 
-			drw_setscheme(drw, scheme[SchemeSelShadow]);
+			drw_setscheme(drw, scheme[m == selmon ? SchemeSelShadow : SchemeNormShadow]);
 			drw_rect(drw, x, lrpad + 6, w, barbottom, 1, 0); /* add shadow bar for window title */
 
 			if (m->sel->isfloating)
@@ -616,6 +616,9 @@ drawbar(Monitor *m)
 		} else {
 			drw_setscheme(drw, scheme[SchemeInfoNorm]);
 			drw_rect(drw, x, 0, w, bh, 1, 1);
+
+			drw_setscheme(drw, scheme[SchemeNormShadow]);
+			drw_rect(drw, x, lrpad + 6, w, barbottom, 1, 0); /* add shadow bar for window title */
 		}
 	}
 	drw_map(drw, m->barwin, 0, 0, m->ww, bh);

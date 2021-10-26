@@ -15,6 +15,7 @@ static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int barheight = 0; 		/* 0 means automatic */
 static const unsigned int barbottom = 4; 		/* size of the small rect below the bar to create a 3D effect */
+static const int bartextheightoffset = 0;       /* vertical offset for the dwm bar text */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 
