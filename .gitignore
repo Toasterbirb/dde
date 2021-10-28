@@ -1,5 +1,5 @@
 *.o
 [Bb]uild
 config.h
-dwm
+dwm/dwm
 testpid
