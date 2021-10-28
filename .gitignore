@@ -3,3 +3,4 @@
 config.h
 dwm/dwm
 testpid
+dwm/config_backup.h
