@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+static const char* version 			= "dwm-6.2";
 
 /* appearance options */
 
@@ -21,8 +22,8 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const bool enable3dbar 		= true;
 
 /* fonts */
-static const char *fonts[]          = { "monospace:size=14" };
-static const char dmenufont[]       = "monospace:size=14";
+static const char *fonts[]          = { "mononoki:size=14" };
+static const char dmenufont[]       = "mononoki:size=14";
 
 /* colors */
 static const char normfgcolor[]     = "#d8dee9";

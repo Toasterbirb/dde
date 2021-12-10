@@ -3,8 +3,10 @@
 
 include config.mk
 
-SRC = drw.cpp dwm.cpp util.cpp
+#SRC = drw.cpp dwm.cpp util.cpp
 OBJ = ${SRC:.cpp=.o}
+SRC = ./src/dwm.cpp ./src/program.cpp
+#OBJ = ./dwm.o ./program.o
 
 all: options dwm
 

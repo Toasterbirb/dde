@@ -1,6 +1,8 @@
 *.o
+*.tar.gz
 [Bb]uild
 config.h
 dwm/dwm
 testpid
 dwm/config_backup.h
+dmenu/dmenu
