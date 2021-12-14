@@ -1,3 +1,6 @@
 [submodule "dwm"]
 	path = dwm
 	url = http://github.com/toasterbirb/dwm
+[submodule "dmenu"]
+	path = dmenu
+	url = http://github.com/toasterbirb/dmenu
