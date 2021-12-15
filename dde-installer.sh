@@ -37,18 +37,24 @@ _install()
 {
 	_makeinstall dwm
 	_makeinstall dmenu
+	_makeinstall dwmblocks
+	_makeinstall slock
 }
 
 _build()
 {
 	_compile dwm
 	_compile dmenu
+	_compile dwmblocks
+	_compile slock
 }
 
 _clean()
 {
 	_makeclean dwm
 	_makeclean dmenu
+	_makeclean dwmblocks
+	_makeclean slock
 }
 
 for i in $@
