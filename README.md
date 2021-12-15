@@ -10,3 +10,8 @@ The list is still short, but it doesn't necessarily need to be even that long to
 | Statusbar         | dwmblocks |
 | Launcher          | dmenu     |
 | Lockscreen        | slock     |
+
+## Configuration
+Most of the configuration is done via modifying the source code and recompiling. There is on-going effort to add reloadable configuration files though.
+
+Currently dwm is the only program with such config file. It resides in $HOME/.config/dde/dwm.conf. An example configuration file can be found [here](https://github.com/Toasterbirb/dwm/blob/master/dwm.conf)
