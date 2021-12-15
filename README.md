@@ -5,11 +5,10 @@ dde (dynamic desktop environment) is a collection of different programs creating
 The list is still short, but it doesn't necessarily need to be even that long to have a working system. Things are going to be added as needed.
 
 |-------------------|-----------|
+| Feature           | Program   |
+|-------------------|-----------|
 | Window management | dwm       |
-|-------------------|-----------|
 | Statusbar         | dwmblocks |
-|-------------------|-----------|
 | Launcher          | dmenu     |
-|-------------------|-----------|
 | Lockscreen        | slock     |
 |-------------------|-----------|
