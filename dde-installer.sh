@@ -18,7 +18,6 @@ _compile()
 
 _makeinstall()
 {
-	[ $(whoami) != root ] && echo "You need to be root to do this" && exit 1
 	echo "Installing $1..."
 	cd $1
 	make install 1>/dev/null && echo "$1 installed successfully" || echo "Something went wrong when installing $1..."
