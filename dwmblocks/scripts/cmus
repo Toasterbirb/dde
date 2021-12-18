@@ -1,0 +1,13 @@
+#!/bin/bash
+cmus_process=$(pidof cmus)
+
+if [ -n "$cmus_process" ]
+then
+	cmus_remote=$(cmus-remote -Q)
+	title=$(echo "$cmus_remote" | awk '/^tag title/' | cut -d' ' -f3-)
+	artist=$(echo "$cmus_remote" | awk '/^tag artist/' | cut -d' ' -f3-)
+	
+	[[ $artist != "" ]] && delimiter=" - " || delimiter=""
+
+	echo "𝅘𝅥𝅯 ${artist}${delimiter}${title}"
+fi
