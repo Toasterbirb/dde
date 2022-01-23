@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 _printHelp()
 {
@@ -38,6 +39,7 @@ _install()
 	_makeinstall dmenu
 	_makeinstall dwmblocks
 	_makeinstall slock
+	_makeinstall st
 }
 
 _build()
@@ -46,6 +48,7 @@ _build()
 	_compile dmenu
 	_compile dwmblocks
 	_compile slock
+	_compile st
 }
 
 _clean()
@@ -54,6 +57,7 @@ _clean()
 	_makeclean dmenu
 	_makeclean dwmblocks
 	_makeclean slock
+	_makeclean st
 }
 
 for i in $@

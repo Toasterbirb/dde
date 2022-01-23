@@ -1,5 +1,5 @@
 #!/bin/sh
-version=1.0.1
+version=0.1.1
 
 # Create temprary directory for the release
 mkdir -p ./dde
