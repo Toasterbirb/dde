@@ -7,5 +7,7 @@ dwm/dwm
 testpid
 dwm/config_backup.h
 dmenu/dmenu
+dmenu/stest
 st/st
 slock/slock
+dwmblocks/dwmblocks

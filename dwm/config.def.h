@@ -5,7 +5,7 @@ static const char* configPath 		= "/home/USER/.config/dde/dwm.conf";
 
 /* appearance */
 static int borderpx  = 3;        /* border pixel of windows */
-static int snap      = 32;       /* snap pixel */
+static int snap      = 8;       /* snap pixel */
 static int gappih    = 10;       /* horiz inner gap between windows */
 static int gappiv    = 10;       /* vert inner gap between windows */
 static int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
@@ -60,10 +60,10 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       										tags mask     isfloating   monitor */
-	//{ "Gimp",     NULL,       NULL,       										0,            0,           -1 },
-	//{ "Firefox",  NULL,       NULL,       										1 << 8,       0,           -1 },
-	{ NULL,       NULL,       "Steam Guard - Computer Authorization Required",  0, 			  1, 		   -1 },
+	/* class      		instance    title       										tags mask     isfloating   monitor */
+	//{ "Gimp",     	NULL,       NULL,       										0,            0,           -1 },
+	{ "Tor Browser",  	NULL,       NULL,       										0,       	  1,           -1 },
+	{ NULL,       		NULL,       "Steam Guard - Computer Authorization Required",  	0, 			  1, 		   -1 },
 };
 
 /* layout(s) */
