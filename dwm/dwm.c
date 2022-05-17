@@ -1866,6 +1866,32 @@ sigterm(int unused)
 void
 spawn(const Arg *arg)
 {
+	if (arg->v == dmenucmd)
+#ifdef DUAL_GPU
+		switch(selmon->num)
+		{
+			case (0):
+				dmenumon[0] = '3';
+				break;
+
+			case (1):
+				dmenumon[0] = '1';
+				break;
+
+			case (2):
+				dmenumon[0] = '0';
+				break;
+
+			case (3):
+				dmenumon[0] = '2';
+				break;
+
+			default:
+				dmenumon[0] = '0' + selmon->num;
+		}
+#else
+		dmenumon[0] = '0' + selmon->num;
+#endif
 	if (fork() == 0) {
 		if (dpy)
 			close(ConnectionNumber(dpy));
