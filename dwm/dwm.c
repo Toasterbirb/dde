@@ -2485,6 +2485,13 @@ readconfig()
 	char buf[256];
 	fp = fopen(configPath, "r");
 
+	if (fp == NULL)
+	{
+		/* The config file probably doesn't exist */
+		logString("Error! Config file doesn't exist");
+		return;
+	}
+
 	for (;;)
 	{
 		char* ok = fgets(buf, LENGTH(buf), fp);
