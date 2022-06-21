@@ -26,17 +26,17 @@ static const char dmenufont[]       = 	"mononoki:size=15";
 
 /* colors */
 static char normbgcolor[]           = "#3b4252";
-static char normbordercolor[]       = "#2A2139";
-static char selbordercolor[]        = "#EDC0FF";
-static char normfgcolor[]           = "#d8dee9";
-static char selfgcolor[]            = "#2e3440";
-static char selbgcolor[]            = "#b48ead"; 	/* Top bar background when there's a window open */
+static char normbordercolor[]       = "#1a1a24";
+static char selbordercolor[]        = "#cddbf9";
+static char normfgcolor[]           = "#cddbf9";
+static char selfgcolor[]            = "#2c2e3e";
+static char selbgcolor[]            = "#b1dba4"; 	/* Top bar background when there's a window open */
 static char col_red[] 				= "#BF616A";
 static char col_blue[] 				= "#5E81AC";
 static char col_cyan[] 				= "#B48EAD";
 static char col_dark[]  			= "#3B4252";
 static char normfgshadowcolor[] 	= "#363B48";
-static char selfgshadowcolor[]  	= "#91738C";
+static char selfgshadowcolor[]  	= "#93b588";
 
 static char *colors[][3] = {
        	/*               	fg           		bg           	border   */
