@@ -2557,7 +2557,7 @@ void
 logString(char* message)
 {
 	FILE *fp;
-	fp = fopen("log.txt", "a");
+	fp = fopen("~/.cache/dde_log.txt", "a");
 	fprintf(fp, "%s\n", message);
 	fprintf(stderr, "Log: %s\n", message);
 	fclose(fp);
@@ -2567,7 +2567,7 @@ void
 logInt(int value)
 {
 	FILE *fp;
-	fp = fopen("log.txt", "a");
+	fp = fopen("~/.cache/dde_log.txt", "a");
 	fprintf(fp, "%d\n", value);
 	fprintf(stderr, "Log: %d\n", value);
 	fclose(fp);
