@@ -2556,21 +2556,25 @@ readconfig()
 void
 logString(char* message)
 {
+#ifdef DEBUG
 	FILE *fp;
-	fp = fopen("~/.cache/dde_log.txt", "a");
+	fp = fopen("./dde_log.txt", "a");
 	fprintf(fp, "%s\n", message);
 	fprintf(stderr, "Log: %s\n", message);
 	fclose(fp);
+#endif
 }
 
 void
 logInt(int value)
 {
+#ifdef DEBUG
 	FILE *fp;
-	fp = fopen("~/.cache/dde_log.txt", "a");
+	fp = fopen("./dde_log.txt", "a");
 	fprintf(fp, "%d\n", value);
 	fprintf(stderr, "Log: %d\n", value);
 	fclose(fp);
+#endif
 }
 
 int
