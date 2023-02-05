@@ -19,7 +19,7 @@ static int topbar          	= 1;        /* 0 means bottom bar */
 static int tagWidthExtra 	= 4; 		/* Add extra width to tags. 0 means default width (16). */
 static int user_bh       	= 28;       /* dwmbar height */
 static int enable3dbar 		= 1;
-static int togglefullscrbar = 1; 		/* Toggle the top bar when entering fullscreen */
+static int togglefullscrbar = 0; 		/* Toggle the top bar when entering fullscreen */
 
 /* fonts */
 static const char *fonts[]          = { "mononoki:size=13" };
