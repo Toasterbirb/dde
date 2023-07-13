@@ -166,6 +166,8 @@ static Key keys[] = {
 	//{ MODKEY,                       XK_F5,     xrdb,           {.v = NULL } }, /* Reload Xresources */
 	{ MODKEY,                       XK_F5,     readconfig,           {0} }, /* Reload the config file */
 
+	{ Mod1Mask,                     XK_Tab,     tagtab,           {0} }, /* Alt-Tab between tags */
+
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)

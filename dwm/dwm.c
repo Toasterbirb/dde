@@ -309,6 +309,15 @@ static Drw *drw;
 static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
 
+/* Store the current and previous tag to allow for
+ * alt-tabbing between them */
+void tagtab(const Arg *arg);
+struct {
+	int tags[2];
+	int current_tag;
+} typedef taghistory;
+static taghistory taghist;
+
 /* configuration, allows nested code to access above variables */
 #include "config.h"
 
@@ -1784,6 +1793,11 @@ setup(void)
 	netatom[NetClientList] = XInternAtom(dpy, "_NET_CLIENT_LIST", False);
 	netatom[NetClientInfo] = XInternAtom(dpy, "_NET_CLIENT_INFO", False);
 
+	/* setup tag history */
+	taghist.tags[0] = 0;
+	taghist.tags[1] = 0;
+	taghist.current_tag = 0;
+
 	/* init cursors */
 	cursor[CurNormal] = drw_cur_create(drw, XC_left_ptr);
 	cursor[CurResize] = drw_cur_create(drw, XC_sizing);
@@ -2323,6 +2337,24 @@ view(const Arg *arg)
 		selmon->tagset[selmon->seltags] = arg->ui & TAGMASK;
 	focus(NULL);
 	arrange(selmon);
+}
+
+void
+tagtab(const Arg *arg)
+{
+	/* Switch to the previous tag */
+	Arg new_arg;
+	if (taghist.current_tag == 0)
+	{
+		new_arg.ui = taghist.tags[1];
+		taghist.current_tag = 1;
+	}
+	else
+	{
+		new_arg.ui = taghist.tags[0];
+		taghist.current_tag = 0;
+	}
+	view(&new_arg);
 }
 
 Client *
