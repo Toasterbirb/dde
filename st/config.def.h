@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "mononoki:pixelsize=18:antialias=true:autohint=true;Liberation Mono:pixelsize=15:antialias=true:autohint=true";
+static char *font = "mononoki:pixelsize=17:antialias=true:autohint=true;Liberation Mono:pixelsize=15:antialias=true:autohint=true";
 static int borderpx = 0;
 
 /*
