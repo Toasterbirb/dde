@@ -1,4 +1,9 @@
 # dde
+
+**NOTICE**
+This project is defunct! Bundling suckless tools into a singular repository didn't really work out in the end. It just doesn't make sense and only makes things more difficult.
+
+
 dde (dynamic desktop environment) is a collection of different programs creating a simple desktop environment. How is this different from Gnome or KDE etc. you might ask. Not too much and a lot at the same time. When someone chooses to go with a window manager only setup instead of a readymade desktop environment, they are basically building their own desktop environment by combining different programs.
 
 ## Features and programs
